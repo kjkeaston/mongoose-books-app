@@ -59,24 +59,35 @@ app.get('/api/books', function (req, res) {
 // get one book
 app.get('/api/books/:id', function (req, res) {
   // find one book by its id
-  console.log('books show', req.params);
-  for(var i=0; i < books.length; i++) {
-    if (books[i]._id === req.params.id) {
-      res.json(books[i]);
-      break; // we found the right book, we can stop searching
-    }
-  }
+  db.Book.find({_id: req.params.id}, function(err, books) {
+    res.json(books);
+  });
 });
+
+//   console.log('books show', req.params);
+//   for(let i=0; i < books.length; i++) {
+//     if (books[i]._id === req.params.id) {
+//       res.json(books[i]);
+//       break; // we found the right book, we can stop searching
+//     }
+//   }
+// });
 
 // create new book
 app.post('/api/books', function (req, res) {
   // create new book with form data (`req.body`)
-  console.log('books create', req.body);
-  var newBook = req.body;
-  newBook._id = newBookUUID++;
-  books.push(newBook);
-  res.json(newBook);
+  console.log(req.body)
+  db.Book.create(req.body, function (err, books) {
+    res.json(books);
+  });
 });
+
+//   console.log('books create', req.body);
+//   var newBook = req.body;
+//   newBook._id = newBookUUID++;
+//   books.push(newBook);
+//   res.json(newBook);
+// });
 
 // update book
 app.put('/api/books/:id', function(req,res){
