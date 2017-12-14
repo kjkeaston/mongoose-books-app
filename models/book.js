@@ -8,9 +8,19 @@ var BookSchema = new Schema({
     ref: 'Author'
   },
   image: String,
-  releaseDate: String
+  releaseDate: String,
+  characters: [CharacterSchema]
 });
+
+
+var CharacterSchema = new Schema ({
+  name: String
+});
+
+
 
 var Book = mongoose.model('Book', BookSchema);
 
 module.exports = Book;
+
+
