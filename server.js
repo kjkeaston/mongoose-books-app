@@ -52,6 +52,23 @@ app.get('/api/books/:id', function (req, res) {
 
 });
 
+// create new character
+app.post('/api/books/:book_id/characters', function (req, res) {
+  let bookId = req.params.book_id;
+  db.Book.findById(bookId)
+    .populate('author')
+    .exec(function (err, foundBook) {
+      if (err) {
+        console.log("error with new characters" + err);
+        res.json(err);
+      }
+      console.log(req.body.character);
+      // let newCharacter = req.body.character
+
+
+    })
+})
+
 
 
 app.post('/api/books', function (req, res) {
